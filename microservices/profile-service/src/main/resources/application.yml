@@ -1,0 +1,69 @@
+spring:
+  profiles:
+    active: development
+---
+spring:
+  profiles: development
+  datasource:
+    url: jdbc:mysql://${DOCKER_IP:192.168.99.100}:3306/dev
+    username: root
+    password: dbpass
+    initialize: true
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:8181/uaa/user
+    client:
+      client-id: acme
+      access-token-uri: http://localhost:8787
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+services:
+  customer:
+    uri: http://localhost:6789
+---
+spring:
+  profiles: docker
+  datasource:
+    url: jdbc:mysql://mysql:3306/dev
+    username: root
+    password: dbpass
+    initialize: true
+  zipkin:
+      base-url: http://zipkin:9411/
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://${DOCKER_IP:192.168.99.100}:8181/uaa/user
+    client:
+      client-id: acme
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/
+---
+spring:
+  profiles: test
+  jpa:
+    show_sql: false
+    database: H2
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    initialize: false
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:8181/uaa/user
+    client:
+      client-id: acme
+      access-token-uri: http://localhost:8787

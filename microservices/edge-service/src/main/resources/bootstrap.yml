@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: edge-service
+server:
+  port: 9999
+---
+spring:
+  profiles: docker
+  cloud:
+    config:
+      uri: http://config-service:8888
+---
+spring:
+  profiles: default
+  cloud:
+    config:
+      enabled: false
+spring.profiles.active: development
+---
+spring:
+  profiles: cloud
+  cloud:
+    config:
+      uri: ${vcap.services.config-service.credentials.uri:http://localhost:8888}
