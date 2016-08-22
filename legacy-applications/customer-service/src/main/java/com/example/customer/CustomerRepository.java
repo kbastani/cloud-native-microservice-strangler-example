@@ -1,37 +1,36 @@
 package com.example.customer;
 
 import com.kennybastani.guides.customer_service.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 public class CustomerRepository {
-    private static final List<Customer> customers = new ArrayList<Customer>();
+    private JdbcTemplate jdbcTemplate;
 
-    @PostConstruct
-    public void initData() {
-        Customer johnDoe = new Customer();
-        johnDoe.setFirstName("John");
-        johnDoe.setLastName("Doe");
-        johnDoe.setEmail("john.doe@example.com");
-        johnDoe.setUsername("user");
-        customers.add(johnDoe);
+    @Autowired
+    public CustomerRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public Customer findCustomer(String username) {
         Assert.notNull(username);
 
-        Customer result = null;
+        Customer result;
 
-        for (Customer country : customers) {
-            if (username.equals(country.getUsername())) {
-                result = country;
-            }
-        }
+        result = jdbcTemplate
+                .query("SELECT id, first_name, last_name, email, username FROM customer WHERE username = ?",
+                        new Object[]{username},
+                        (rs, rowNum) -> {
+                            Customer customer = new Customer();
+                            customer.setFirstName(rs.getString("first_name"));
+                            customer.setLastName(rs.getString("last_name"));
+                            customer.setEmail(rs.getString("email"));
+                            customer.setUsername(rs.getString("username"));
+                            return customer;
+                        }).stream().findFirst().orElse(null);
 
         return result;
     }

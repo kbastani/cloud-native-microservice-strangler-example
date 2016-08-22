@@ -25,7 +25,6 @@ public class CustomerEndpoint {
     public GetCustomerResponse getCustomer(@RequestPayload GetCustomerRequest request) {
         GetCustomerResponse response = new GetCustomerResponse();
         response.setCustomer(customerRepository.findCustomer(request.getUsername()));
-
         return response;
     }
 }

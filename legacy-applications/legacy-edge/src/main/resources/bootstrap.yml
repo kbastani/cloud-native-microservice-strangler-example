@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: legacy-edge
+server:
+  port: 7777
+---
+spring:
+  profiles:
+    active: development
+    include: default
+
+---
+spring:
+  profiles: cloud

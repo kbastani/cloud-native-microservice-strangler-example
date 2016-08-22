@@ -8,6 +8,14 @@ server:
 security:
   user:
     password: password
+  oauth2:
+    client:
+      client-id: acme
+      access-token-uri: http://localhost:8181/uaa/oauth/token
+      grant-type: client-credentials
+      client-secret: acmesecret
+      scope: openid
+      client-authentication-scheme: header
   enable-csrf: false
 logging.level.org.springframework.security: DEBUG
 spring:
@@ -26,6 +34,14 @@ security:
   user:
     password: password
   enable-csrf: false
+  oauth2:
+    client:
+      client-id: acme
+      access-token-uri: http://localhost:8181/uaa/oauth/token
+      grant-type: client-credentials
+      client-secret: acmesecret
+      scope: openid
+      client-authentication-scheme: header
 spring:
   profiles: docker
   datasource:
@@ -54,3 +70,12 @@ spring:
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
     initialize: true
+security:
+  oauth2:
+    client:
+      client-id: acme
+      access-token-uri: http://localhost:8181/uaa/oauth/token
+      grant-type: client-credentials
+      client-secret: acmesecret
+      scope: openid
+      client-authentication-scheme: header

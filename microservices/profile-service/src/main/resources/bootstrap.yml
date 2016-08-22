@@ -14,7 +14,8 @@ spring:
   profiles: default
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://localhost:1111
+      enabled: false
 spring.profiles.active: development
 ---
 spring:

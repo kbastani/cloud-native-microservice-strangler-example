@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>event-sourcing/profile-service</name>
+    <name>microservices/profile-service</name>
 
     <parent>
         <groupId>org.kbastani</groupId>

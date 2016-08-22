@@ -51,6 +51,9 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka/
+services:
+  profile:
+    uri: http://localhost:6789
 ---
 spring:
   profiles: test
@@ -67,3 +70,6 @@ security:
     client:
       client-id: acme
       access-token-uri: http://localhost:8787
+services:
+  profile:
+    uri: http://localhost:6789

@@ -1,5 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://kennybastani.com/guides/customer-service"
-           targetNamespace="http://kennybastani.com/guides/customer-service" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://kennybastani.com/guides/profile-service"
+           targetNamespace="http://kennybastani.com/guides/profile-service" elementFormDefault="qualified">
 
     <xs:element name="getCustomerRequest">
         <xs:complexType>
@@ -12,12 +12,12 @@
     <xs:element name="getCustomerResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="customer" type="tns:customer"/>
+                <xs:element name="profile" type="tns:profile"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="customer">
+    <xs:complexType name="profile">
         <xs:sequence>
             <xs:element name="username" type="xs:string"/>
             <xs:element name="firstName" type="xs:string"/>

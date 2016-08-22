@@ -3,7 +3,7 @@
 set -e
 
 # Build the project and docker images
-mvn clean install
+# mvn clean install
 
 # Export the active docker machine IP
 export DOCKER_IP=$(docker-machine ip $(docker-machine active))
@@ -16,9 +16,10 @@ docker-compose rm -f
 docker-compose up -d mysql
 
 # Start the config + discovery service first and wait for it to become available
-java -jar ./config-service/target/*-SNAPSHOT.jar & java -jar ./discovery-service/target/*-SNAPSHOT.jar &
+java -jar ./microservices/config-service/target/*-SNAPSHOT.jar & java -jar ./microservices/discovery-service/target/*-SNAPSHOT.jar &
 
-java -jar ./user-service/target/*-SNAPSHOT.jar &
-java -jar ./edge-service/target/*-SNAPSHOT.jar &
-java -jar ./profile-service/target/*-SNAPSHOT.jar &
-java -jar ./customer-legacy/target/*-SNAPSHOT.jar &
+java -jar ./microservices/user-service/target/*-SNAPSHOT.jar &
+java -jar ./microservices/edge-service/target/*-SNAPSHOT.jar &
+java -jar ./microservices/profile-service/target/*-SNAPSHOT.jar &
+java -jar ./legacy-applications/customer-service/target/*-SNAPSHOT.jar &
+java -jar ./legacy-applications/legacy-edge/target/*-SNAPSHOT.jar &

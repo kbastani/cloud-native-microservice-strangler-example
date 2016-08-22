@@ -1,33 +1,31 @@
-package demo.customer;
+package demo.profile;
 
-import demo.account.Account;
 import demo.data.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-/**
- * The {@link Customer} entity is a root object in the com.example.customer bounded context.
- *
- * @author Kenny Bastani
- * @author Josh Long
- */
 @Entity
-public class Customer extends BaseEntity {
+public class Profile extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
-    private Account account;
+    private String username;
 
-    public Customer() {
+    public Profile() {
     }
 
-    public Customer(String firstName, String lastName, String email, Account account) {
+    public Profile(String firstName, String lastName, String email, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.account = account;
+        this.username = username;
     }
 
     @Id
@@ -64,23 +62,23 @@ public class Customer extends BaseEntity {
         this.email = email;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    public Account getAccount() {
-        return account;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "Profile{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", account=" + account +
+                ", username='" + username + '\'' +
                 "} " + super.toString();
     }
+
 }

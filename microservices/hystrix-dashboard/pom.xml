@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>event-sourcing/hystrix-dashboard</name>
+    <name>microservices/hystrix-dashboard</name>
 
     <parent>
         <groupId>org.kbastani</groupId>

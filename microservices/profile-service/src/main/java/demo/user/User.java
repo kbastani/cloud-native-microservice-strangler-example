@@ -5,8 +5,6 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Long id;
     private String username;
-    private String firstName;
-    private String lastName;
     private Long createdAt;
     private Long lastModified;
 
@@ -27,22 +25,6 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Long getCreatedAt() {
@@ -66,8 +48,6 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", createdAt=" + createdAt +
                 ", lastModified=" + lastModified +
                 '}';

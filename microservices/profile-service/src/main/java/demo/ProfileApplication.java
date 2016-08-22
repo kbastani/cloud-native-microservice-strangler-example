@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * The {@link ProfileApplication} is a cloud-native Spring Boot application that manages
- * a bounded context for @{link Customer}, @{link Account}, @{link CreditCard}, and @{link Address}
+ * a bounded context for @{link Profile}, @{link Account}, @{link CreditCard}, and @{link Address}
  *
  * @author Kenny Bastani
  * @author Josh Long

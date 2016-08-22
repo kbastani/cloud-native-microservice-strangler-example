@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>event-sourcing/zipkin-tracing</name>
+    <name>microservices/zipkin-tracing</name>
 
     <parent>
         <groupId>org.kbastani</groupId>
@@ -30,6 +30,7 @@
         <dependency>
             <groupId>io.zipkin</groupId>
             <artifactId>zipkin-ui</artifactId>
+            <version>1.40.0</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>

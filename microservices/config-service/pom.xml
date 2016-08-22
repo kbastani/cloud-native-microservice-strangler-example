@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>event-sourcing/config-service</name>
+    <name>microservices/config-service</name>
 
     <parent>
         <groupId>org.kbastani</groupId>
