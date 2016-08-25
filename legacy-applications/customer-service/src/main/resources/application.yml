@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    active: development
+---
+server:
+  port: 6789
+spring:
+  profiles: development
+  datasource:
+    url: jdbc:mysql://${DOCKER_IP:192.168.99.100}:3306/dev
+    username: root
+    password: dbpass
+    driver-class-name: com.mysql.jdbc.Driver
+  zipkin:
+    base-url: http://localhost:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
+services:
+  customer:
+    uri: http://localhost:7777
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+---
+server:
+  port: 6789
+spring:
+  profiles: docker
+  datasource:
+    url: jdbc:mysql://${DOCKER_IP:192.168.99.100}:3306/dev
+    username: root
+    password: dbpass
+    driver-class-name: com.mysql.jdbc.Driver
+services:
+  customer:
+    uri: http://localhost:7777

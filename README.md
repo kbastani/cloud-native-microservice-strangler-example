@@ -27,7 +27,7 @@ This reference application is a Spring Cloud example of implementing a cloud-nat
 
 ![Example Cloud Native Strangler Microservice Architecture](http://i.imgur.com/4xgMaM7.jpg)
 
-## Online Store Domain
+## Overview
 
 This reference application is based on both common and novel design patterns for building a cloud-native hybrid architecture with both legacy applications and microservices. The reference project includes the following applications.
 

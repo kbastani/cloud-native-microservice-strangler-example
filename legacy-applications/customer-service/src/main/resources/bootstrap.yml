@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: customer-service
+---
+spring:
+  profiles: docker
+---
+spring:
+  profiles: default
+spring.profiles.active: development
+---
+spring:
+  profiles: cloud
