@@ -11,6 +11,9 @@ public class CustomerClient extends WebServiceGatewaySupport {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerClient.class);
 
+    private static final String GET_CUSTOMER_NAMESPACE =
+            "http://kennybastani.com/guides/customer-service/getCustomerRequest";
+
     public GetCustomerResponse getCustomerResponse(String username) {
 
         GetCustomerRequest request = new GetCustomerRequest();
@@ -22,7 +25,6 @@ public class CustomerClient extends WebServiceGatewaySupport {
                 .marshalSendAndReceive(
                         String.format("%s/v1/customers", this.getDefaultUri()),
                         request,
-                        new SoapActionCallback("http://kennybastani.com/guides/customer-service/getCustomerRequest"));
+                        new SoapActionCallback(GET_CUSTOMER_NAMESPACE));
     }
-
 }

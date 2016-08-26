@@ -14,18 +14,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableZuulProxy
 @EnableOAuth2Sso
 @EnableHystrix
-public class OnlineStoreApplication extends WebSecurityConfigurerAdapter {
+public class ProfileWebApplication extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) {
-        SpringApplication.run(OnlineStoreApplication.class, args);
+        SpringApplication.run(ProfileWebApplication.class, args);
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/index.html", "/login", "/", "/api/catalog/**",
-                        "/user", "/assets/**").permitAll()
+                .antMatchers("/login", "/user", "/assets/**").permitAll()
                 .anyRequest().authenticated().and().csrf().disable();
     }
 

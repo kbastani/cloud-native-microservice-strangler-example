@@ -21,8 +21,8 @@ public class ProfileControllerV1 {
     }
 
     @RequestMapping(path = "/profiles")
-    public ResponseEntity getProfile(@RequestParam("username") String username) throws Exception {
-        return Optional.ofNullable(profileService.getProfile(username))
+    public ResponseEntity getProfile() throws Exception {
+        return Optional.ofNullable(profileService.getProfile())
                 .map(a -> new ResponseEntity<>(a, HttpStatus.OK))
                 .orElseThrow(() -> new Exception("Profile for user does not exist"));
     }

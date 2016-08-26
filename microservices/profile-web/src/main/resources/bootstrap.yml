@@ -1,6 +1,6 @@
 spring:
   application:
-    name: online-store-web
+    name: profile-web
 server:
   port: 8787
 ---

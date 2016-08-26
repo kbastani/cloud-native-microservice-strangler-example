@@ -1,0 +1,55 @@
+<div class="container hidden-content" ng-model="accounts">
+    <div ng-if="accounts.username == undefined" class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Profile</div>
+                <ul class="list-group list-group-details accounts">
+                    <li class="list-group-item">
+                        <div class="account-username panel-heading">
+                            Sign in to view profile
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-if="accounts.id != undefined" class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Profile</div>
+                <ul class="list-group list-group-details accounts">
+                    <li class="list-group-item">
+                        <div class="account-username">
+                            <div class="panel-heading">Username: <span
+                                    class="panel-heading ng-binding">{{ accounts.username }}</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="account-number">
+                            <div class="panel-heading">First name: <span
+                                    class="panel-heading ng-binding">{{ accounts.firstName }}</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="account-number">
+                            <div class="panel-heading">Last name: <span
+                                    class="panel-heading ng-binding">{{ accounts.lastName }}</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="account-number">
+                            <div class="panel-heading">Email: <span
+                                    class="panel-heading ng-binding">{{ accounts.email }}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

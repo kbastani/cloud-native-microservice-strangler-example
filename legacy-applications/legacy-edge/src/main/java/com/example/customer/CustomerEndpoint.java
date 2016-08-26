@@ -30,7 +30,8 @@ public class CustomerEndpoint {
         GetCustomerResponse response = new GetCustomerResponse();
 
         // Get customer object from profile microservice
-        response.setCustomer(Optional.ofNullable(restTemplate.getForObject("http://profile-service/v1/profiles?username={username}",
+        response.setCustomer(Optional.ofNullable(
+                restTemplate.getForObject("http://profile-service/v1/profiles?username={username}",
                 Customer.class, request.getUsername()))
                 .map(c -> c).orElse(null));
 
