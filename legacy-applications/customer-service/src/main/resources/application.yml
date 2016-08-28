@@ -16,9 +16,6 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
-services:
-  customer:
-    uri: http://localhost:7777
 eureka:
   instance:
     prefer-ip-address: true
@@ -33,10 +30,15 @@ server:
 spring:
   profiles: docker
   datasource:
-    url: jdbc:mysql://${DOCKER_IP:192.168.99.100}:3306/dev
+    url: jdbc:mysql://mysql:3306/dev
     username: root
     password: dbpass
     driver-class-name: com.mysql.jdbc.Driver
-services:
-  customer:
-    uri: http://localhost:7777
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/

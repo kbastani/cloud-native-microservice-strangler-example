@@ -19,36 +19,51 @@
             <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading">Profile</div>
-                <ul class="list-group list-group-details accounts">
-                    <li class="list-group-item">
-                        <div class="account-username">
-                            <div class="panel-heading">Username: <span
-                                    class="panel-heading ng-binding">{{ accounts.username }}</span>
+                <form ng-submit="updateProfile()" ng-controller="UpdateProfileCtrl">
+                    <ul class="list-group list-group-details accounts">
+                        <li class="list-group-item">
+                            <div class="username">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username" placeholder="Username"
+                                           ng-model="accounts.username" disabled>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="account-number">
-                            <div class="panel-heading">First name: <span
-                                    class="panel-heading ng-binding">{{ accounts.firstName }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="first-name">
+                                <div class="form-group">
+                                    <label for="username">First name</label>
+                                    <input type="text" class="form-control" id="firstname" placeholder="First name"
+                                           ng-model="accounts.firstName">
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="account-number">
-                            <div class="panel-heading">Last name: <span
-                                    class="panel-heading ng-binding">{{ accounts.lastName }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="last-name">
+                                <div class="form-group">
+                                    <label for="lastname">Last name</label>
+                                    <input type="text" class="form-control" id="lastname" placeholder="Last name"
+                                           ng-model="accounts.lastName">
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="account-number">
-                            <div class="panel-heading">Email: <span
-                                    class="panel-heading ng-binding">{{ accounts.email }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="e-mail">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Email"
+                                           ng-model="accounts.email">
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group update-profile-btn">
+                                <button class="btn btn-default" type="submit">Update</button>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
             </div>
         </div>
     </div>

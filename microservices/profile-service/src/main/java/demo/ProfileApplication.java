@@ -1,5 +1,6 @@
 package demo;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -35,6 +36,11 @@ import org.springframework.stereotype.Component;
 public class ProfileApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProfileApplication.class, args);
+    }
+
+    @Bean
+    public Queue updateCustomerQueue() {
+        return new Queue("customer.update", true, false, false);
     }
 
     @LoadBalanced

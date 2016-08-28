@@ -1,11 +1,10 @@
 package demo.api.v1;
 
+import demo.profile.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -20,9 +19,16 @@ public class ProfileControllerV1 {
         this.profileService = profileService;
     }
 
-    @RequestMapping(path = "/profiles")
-    public ResponseEntity getProfile() throws Exception {
-        return Optional.ofNullable(profileService.getProfile())
+    @RequestMapping(path = "/profiles/{username}", method = RequestMethod.GET)
+    public ResponseEntity getProfile(@PathVariable String username) throws Exception {
+        return Optional.ofNullable(profileService.getProfile(username))
+                .map(a -> new ResponseEntity<>(a, HttpStatus.OK))
+                .orElseThrow(() -> new Exception("Profile for user does not exist"));
+    }
+
+    @RequestMapping(path = "/profiles/{username}", method = RequestMethod.POST)
+    public ResponseEntity updateProfile(@RequestBody Profile profile) throws Exception {
+        return Optional.ofNullable(profileService.updateProfile(profile))
                 .map(a -> new ResponseEntity<>(a, HttpStatus.OK))
                 .orElseThrow(() -> new Exception("Profile for user does not exist"));
     }

@@ -14,6 +14,17 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
+  rabbitmq:
+    port: 5672
+    host: ${DOCKER_IP:192.168.99.100}
+    username: guest
+    password: guest
+    listener:
+      max-concurrency: 1
+      prefetch: 1
+      acknowledge-mode: auto
+      auto-startup: true
+    dynamic: true
 security:
   oauth2:
     resource:
@@ -41,11 +52,25 @@ spring:
     password: dbpass
     initialize: true
   zipkin:
-      base-url: http://localhost:9411/
+    base-url: http://zipkin:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
+  rabbitmq:
+      port: 5672
+      host: 'rabbit'
+      username: guest
+      password: guest
+      listener:
+        max-concurrency: 1
+        prefetch: 1
+        acknowledge-mode: auto
+        auto-startup: true
+      dynamic: true
 security:
   oauth2:
     resource:
-      userInfoUri: http://${DOCKER_IP:192.168.99.100}:8181/uaa/user
+      userInfoUri: http://user-service:8181/uaa/user
     client:
       client-id: acme
 eureka:
@@ -57,8 +82,8 @@ eureka:
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka/
 services:
-  profile:
-    uri: http://localhost:6789
+  customer:
+    uri: http://customer-service:6789
 ---
 spring:
   profiles: test

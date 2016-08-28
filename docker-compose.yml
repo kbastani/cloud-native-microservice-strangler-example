@@ -1,10 +1,10 @@
-config-service:
-  image: kbastani/config-service
-  environment:
-   - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
-  ports:
-   - 8888:8888
+#config-service:
+#  image: config-service
+#  environment:
+#   - SPRING_PROFILES_ACTIVE=docker
+#   - DOCKER_IP=$DOCKER_IP
+#  ports:
+#   - 8888:8888
 mysql:
   image: mysql:latest
   ports:
@@ -12,60 +12,84 @@ mysql:
   environment:
    - MYSQL_ROOT_PASSWORD=dbpass
    - MYSQL_DATABASE=dev
+rabbit:
+  container_name: rabbit
+  image: rabbitmq:3
+  ports:
+   - 5672:5672
 user-service:
-  image: kbastani/user-service
+  image: user-service
   ports:
    - 8181:8181
   links:
    - mysql
    - discovery-service
-   - config-service
-   - zipkin
+   #- config-service
+   #- zipkin
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - DOCKER_IP=$DOCKER_IP
 discovery-service:
-  image: kbastani/discovery-service
+  image: discovery-service
   ports:
    - 8761:8761
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - DOCKER_IP=$DOCKER_IP
 edge-service:
-  image: kbastani/edge-service
+  image: edge-service
   ports:
    - 9999:9999
   links:
    - user-service
    - discovery-service
-   - config-service
-   - zipkin
+   #- config-service
+   #- zipkin
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - DOCKER_IP=$DOCKER_IP
 profile-service:
-  image: kbastani/profile-service
+  image: profile-service
   links:
    - user-service
    - discovery-service
-   - config-service
+   - customer-service
+   #- config-service
    - mysql
+   - rabbit
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - DOCKER_IP=$DOCKER_IP
 profile-web:
-  image: kbastani/profile-web
+  image: profile-web
   ports:
    - 8787:8787
   links:
    - discovery-service
-   - config-service
+   #- config-service
    - user-service
    - edge-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - DOCKER_IP=$DOCKER_IP
-zipkin:
-  image: kbastani/zipkin-tracing
+customer-service:
+  image: customer-service
   ports:
-   - 9411:9411
+   - 6789:6789
+  links:
+   - discovery-service
+   - mysql
+  environment:
+   - SPRING_PROFILES_ACTIVE=docker
+   - DOCKER_IP=$DOCKER_IP
+legacy-edge:
+  image: legacy-edge
+  ports:
+   - 7777:7777
+  links:
+   - discovery-service
+   - user-service
+   - edge-service
+  environment:
+   - SPRING_PROFILES_ACTIVE=docker
+   - DOCKER_IP=$DOCKER_IP

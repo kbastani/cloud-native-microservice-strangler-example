@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="customer" type="{http://kennybastani.com/guides/customer-service}customer"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "username"
+    "customer"
 })
-@XmlRootElement(name = "getCustomerRequest")
-public class GetCustomerRequest {
+@XmlRootElement(name = "updateCustomerRequest")
+public class UpdateCustomerRequest {
 
     @XmlElement(required = true)
-    protected String username;
+    protected Customer customer;
 
     /**
-     * Gets the value of the username property.
+     * Gets the value of the customer property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Customer }
      *     
      */
-    public String getUsername() {
-        return username;
+    public Customer getCustomer() {
+        return customer;
     }
 
     /**
-     * Sets the value of the username property.
+     * Sets the value of the customer property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Customer }
      *     
      */
-    public void setUsername(String value) {
-        this.username = value;
+    public void setCustomer(Customer value) {
+        this.customer = value;
     }
 
 }

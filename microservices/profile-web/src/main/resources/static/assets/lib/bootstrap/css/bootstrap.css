@@ -2076,7 +2076,12 @@ textarea.form-control {
 }
 
 .form-group {
-    margin-bottom: 15px;
+    max-width: 30em;
+    padding: 0.5em 1em;
+}
+
+.form-group.update-profile-btn {
+    margin-top: 1em;
 }
 
 .radio,
@@ -5662,7 +5667,6 @@ a.thumbnail.active {
     display: block;
     padding: 10px 15px;
     margin-bottom: -1px;
-    border: 1px solid #222;
     text-align: left;
 }
 
