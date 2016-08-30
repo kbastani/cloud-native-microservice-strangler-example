@@ -9,7 +9,6 @@ This reference application is a Spring Cloud example of implementing a cloud-nat
   * Configuration Server
   * Service Discovery
   * Circuit Breakers
-  * Distributed Tracing
   * API Gateway / Micro-proxy
 * Legacy Edge Gateway
   * Legacy application integration layer
@@ -19,13 +18,12 @@ This reference application is a Spring Cloud example of implementing a cloud-nat
   * Database records are siphoned away from legacy databases
   * Datasource routing enables legacy systems to use microservices as the system of record
 * Strangler Event Architecture
-  * Event sourcing is used to capture assets from domain resources in legacy systems
   * Asset capture strategy uses events to guarantee single system of record for resources
-  * Writes are locked during the migration of data from the legacy system to microservices
+  * Durable mirroring of updates back to legacy system
 
 ## Architecture Diagram
 
-![Example Cloud Native Strangler Microservice Architecture](http://i.imgur.com/4xgMaM7.jpg)
+![Example Cloud Native Strangler Microservice Architecture](http://i.imgur.com/ZhuwpbZ.png)
 
 ## Overview
 
@@ -37,19 +35,32 @@ This reference application is based on both common and novel design patterns for
 * Microservices
   * Discovery Service
   * Edge Service
+  * Config Service
   * User Service
-  * Account Service
-  * Web/Edge Application
+  * Profile Service
+  * Profile Web
 
 ## Legacy Database Strangulation
 
 When building microservices, the general approach is to take existing monoliths and to decompose their components into microservices. Instead of migrating all legacy applications at once, we can allow an organic process of decomposition to drive the birth of new cloud-native applications that strangle data away from shared databases used by legacy applications. The _cloud-native strangler pattern_ focuses on the complete replacement of a monolith's database access over a period of time.
 
-In this approach microservices will be transitioned to become the system of record for domain data used by strangled legacy applications. The process of performing an on-demand migration of data out of a shared database will require that only one system of record exists at any one time. To solve this, a _Legacy Edge_ application acts as an API gateway to allow legacy applications to talk to new microservices, switching between database and HTTP for data access.
+In this approach microservices will be transitioned to become the system of record for domain data used by strangled legacy applications. The process of performing an on-demand migration of data out of a shared database will require that only one system of record exists at any one time. To solve this, a _Legacy Edge_ application acts as an API gateway to allow legacy applications to talk to new microservices.
+ 
+## Usage
 
-To strangle data away from a shared database, legacy applications need to be able to switch between data access protocols—either a database connection or HTTP—to retrieve domain data. When domain data is migrated to a microservice, the monolith will need to stop reading that data from the shared database—and instead access it from REST APIs exposed by microservices. 
+There are two ways to run the reference application, with either Docker Compose or Cloud Foundry, the latter of which can be installed on a development machine using https://docs.pivotal.io/pcf-dev/[PCF Dev^]. Since the distributed application is designed to be cloud-native, there is a lot to be gained from understanding how to deploy the example using Cloud Foundry.
 
-This reference architecture is a proof of concept for how to migrate to a cloud-native application architecture while building microservices without having to take a _lift and shift_ approach for migrating legacy applications and databases into the cloud. 
+### Docker Compose
+
+To run the example using Docker Compose, a `run.sh` script is provided which will orchestrate the startup of each application. Since the example will run 8 applications and multiple backing services, it's necessary to have at least 9GB of memory allocated to Docker.
+
+WARNING: The `run.sh` script is designed to use Docker Machine, so if you're using Docker for Mac, you'll need to modify the `run.sh` script by setting `DOCKER_IP` to `localhost`.
+
+### Cloud Foundry
+
+To run the example using Cloud Foundry, a `deploy.sh` script is provided which will orchestrate the deployment of each application to a simulated cloud-native environment. If you have enough resources available, you can deploy the example on http://run.pivotal.io[Pivotal Web Service^]. If you're new to Cloud Foundry, it's highly recommended that you go with the PCF Dev approach, which you can install by following the directions at https://docs.pivotal.io/pcf-dev/[https://docs.pivotal.io/pcf-dev/^].
+
+When you have a CF environment to deploy the example, go ahead and run the `deploy.sh` script in the parent directory of the project. The bash script is commented enough for most to understand the steps of the deployment. Each Cloud Foundry deployment manifest is located in the directory of the application in example project, named `manifest.yml`. The deployment process will deploy the Spring Cloud backing services first, and afterward, each microservice will be deployed one by one until each application is running.
 
 ## License
 
