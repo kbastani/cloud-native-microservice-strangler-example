@@ -13,3 +13,5 @@ applications:
    - config-service
    - profile-db
    - user-service
+   - customer-update-mq
+   - customer-service

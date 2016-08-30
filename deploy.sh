@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Deploys the example application to Cloud Foundry
 
+mvn clean install -DskipDockerBuild
+
 filter_arr() {
     arr=($@)
     arr=(${arr[@]:1})
@@ -26,8 +28,8 @@ do
 done
 
 # This is the list of backing services for the online store
-backing_services='discovery-service\|config-service\|user-service\|edge-service'
-service_instances=(discovery-service config-service user-service edge-service)
+backing_services='discovery-service\|config-service\|user-service\|edge-service\|customer-service'
+service_instances=(discovery-service config-service user-service edge-service customer-service)
 
 # Filter out microservices
 include_arr $backing_services ${dirs[@]}
@@ -37,25 +39,32 @@ filter_arr $backing_services ${dirs[@]}
 
 echo 'Deploying backing services...\n---'
 
+# Create databases and message brokers
+
+cf create-service p-mysql 1gb user-db
+cf create-service p-mysql 1gb shared-db
+cf create-service p-mysql 1gb profile-db
+cf create-service p-rabbitmq standard customer-update-mq
+
 PROJECT_DIR=$PWD
 
 for D in ${service_instances[@]}
 do
     # Find the existing app
     app=$(echo $(cf app ${D} --guid) | grep -v 'FAILED')
-    cd "$PROJECT_DIR/${D}"
+    cd $PROJECT_DIR/*/${D}
 
     if [ -z "${app}" ]
     then
         echo "Creating new app '${D}'..."
-        cf push
+        cf push -b https://github.com/cloudfoundry/java-buildpack.git
     else
         # Be sure to use the already existing route
         echo "Getting existing route for '${D}'..."
         route=$(cf curl /v2/apps/$(cf app ${D} --guid)/routes | jq -r '.resources[0].entity.host')
         echo "Found route '${route}'\n"
         echo "Pushing ${D}..."
-        cf push -n $route
+        cf push -b https://github.com/cloudfoundry/java-buildpack.git -n $route
     fi
 
     # Retrieve full url for backing service
@@ -87,13 +96,13 @@ do
     if [ -z "${app}" ]
     then
         echo "Creating new app '${D}'..."
-        cf push
+        cf push -b https://github.com/cloudfoundry/java-buildpack.git
     else
         # Be sure to use the already existing route
         echo "Getting existing route for '${D}'..."
         route=$(cf curl /v2/apps/$(cf app ${D} --guid)/routes | jq -r '.resources[0].entity.host')
         echo "Found route '${route}'\n"
         echo "Pushing ${D}..."
-        cf push -n $route
+        cf push -b https://github.com/cloudfoundry/java-buildpack.git -n $route
     fi
 done
