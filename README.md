@@ -48,7 +48,7 @@ In this approach microservices will be transitioned to become the system of reco
  
 ## Usage
 
-There are two ways to run the reference application, with either Docker Compose or Cloud Foundry, the latter of which can be installed on a development machine using https://docs.pivotal.io/pcf-dev/[PCF Dev^]. Since the distributed application is designed to be cloud-native, there is a lot to be gained from understanding how to deploy the example using Cloud Foundry.
+There are two ways to run the reference application, with either Docker Compose or Cloud Foundry, the latter of which can be installed on a development machine using [PCF Dev](https://docs.pivotal.io/pcf-dev/). Since the distributed application is designed to be cloud-native, there is a lot to be gained from understanding how to deploy the example using Cloud Foundry.
 
 ### Docker Compose
 
@@ -58,7 +58,7 @@ WARNING: The `run.sh` script is designed to use Docker Machine, so if you're usi
 
 ### Cloud Foundry
 
-To run the example using Cloud Foundry, a `deploy.sh` script is provided which will orchestrate the deployment of each application to a simulated cloud-native environment. If you have enough resources available, you can deploy the example on http://run.pivotal.io[Pivotal Web Service^]. If you're new to Cloud Foundry, it's highly recommended that you go with the PCF Dev approach, which you can install by following the directions at https://docs.pivotal.io/pcf-dev/[https://docs.pivotal.io/pcf-dev/^].
+To run the example using Cloud Foundry, a `deploy.sh` script is provided which will orchestrate the deployment of each application to a simulated cloud-native environment. If you have enough resources available, you can deploy the example on [Pivotal Web Service](http://run.pivotal.io). If you're new to Cloud Foundry, it's highly recommended that you go with the PCF Dev approach, which you can install by following the directions at https://docs.pivotal.io/pcf-dev/.
 
 When you have a CF environment to deploy the example, go ahead and run the `deploy.sh` script in the parent directory of the project. The bash script is commented enough for most to understand the steps of the deployment. Each Cloud Foundry deployment manifest is located in the directory of the application in example project, named `manifest.yml`. The deployment process will deploy the Spring Cloud backing services first, and afterward, each microservice will be deployed one by one until each application is running.
 
