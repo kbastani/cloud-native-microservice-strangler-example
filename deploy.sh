@@ -1,19 +1,5 @@
 #!/usr/bin/env bash
-# Deploys the online store application to CF
-
-echo '
-   ____ _                 _   _   _       _   _
-  / ___| | ___  _   _  __| | | \ | | __ _| |_(_)_   _____
- | |   | |/ _ \| | | |/ _` | |  \| |/ _` | __| \ \ / / _ \
- | |___| | (_) | |_| | (_| | | |\  | (_| | |_| |\ V /  __/
-  \____|_|\___/ \__,_|\__,_| |_| \_|\__,_|\__|_| \_/ \___|
-   ___        _    __ _ _   _
-  / _ \ _   _| |_ / _(_) |_| |_ ___ _ __ ___
- | | | | | | | __| |_| | __| __/ _ \ ''__/ __|
- | |_| | |_| | |_|  _| | |_| ||  __/ |  \__ \
-  \___/ \__,_|\__|_| |_|\__|\__\___|_|  |___/
-
-'
+# Deploys the example application to Cloud Foundry
 
 filter_arr() {
     arr=($@)
@@ -34,7 +20,7 @@ include_arr() {
 # Get manifest files for app deployments and services
 declare -a dirs
 i=1
-for d in `find */* -name manifest.yml -type f`
+for d in `find */*/* -name manifest.yml -type f`
 do
     dirs[i++]=$(echo "${d%/}" | sed -e "s/\/manifest.yml//g")
 done

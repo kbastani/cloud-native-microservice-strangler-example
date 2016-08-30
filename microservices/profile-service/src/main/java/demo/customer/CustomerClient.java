@@ -11,8 +11,7 @@ public class CustomerClient extends WebServiceGatewaySupport {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerClient.class);
 
-    private static final String ROOT_NAMESPACE =
-            "http://kennybastani.com/guides/customer-service/";
+    private static final String ROOT_NAMESPACE = "http://kennybastani.com/guides/customer-service/";
     private static final String GET_CUSTOMER_NAMESPACE = "getCustomerRequest";
     private static final String UPDATE_CUSTOMER_NAMESPACE = "updateCustomerRequest";
 
@@ -27,8 +26,7 @@ public class CustomerClient extends WebServiceGatewaySupport {
                 .marshalSendAndReceive(
                         String.format("%s/v1/customers", this.getDefaultUri()),
                         request,
-                        new SoapActionCallback(ROOT_NAMESPACE +
-                                GET_CUSTOMER_NAMESPACE));
+                        new SoapActionCallback(ROOT_NAMESPACE + GET_CUSTOMER_NAMESPACE));
     }
 
     public UpdateCustomerResponse updateCustomerResponse(Profile profile) {
@@ -49,7 +47,6 @@ public class CustomerClient extends WebServiceGatewaySupport {
                 .marshalSendAndReceive(
                         String.format("%s/v1/customers", this.getDefaultUri()),
                         request,
-                        new SoapActionCallback(ROOT_NAMESPACE +
-                                UPDATE_CUSTOMER_NAMESPACE));
+                        new SoapActionCallback(ROOT_NAMESPACE + UPDATE_CUSTOMER_NAMESPACE));
     }
 }

@@ -1,10 +1,10 @@
 ---
 applications:
-- name: online-store-web
+- name: profile-web
   memory: 850mb
   instances: 1
-  host: online-store-web
-  path: target/online-store-web-0.0.1-SNAPSHOT.jar
+  host: profile-web
+  path: target/profile-web-0.0.1-SNAPSHOT.jar
   env:
     SPRING_PROFILES_ACTIVE: cloud
   services:

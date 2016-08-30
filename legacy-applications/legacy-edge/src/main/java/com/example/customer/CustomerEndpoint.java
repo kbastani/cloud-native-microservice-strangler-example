@@ -1,9 +1,7 @@
 package com.example.customer;
 
 
-import com.kennybastani.guides.customer_service.Customer;
-import com.kennybastani.guides.customer_service.GetCustomerRequest;
-import com.kennybastani.guides.customer_service.GetCustomerResponse;
+import com.kennybastani.guides.customer_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -11,6 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.xml.soap.SOAPException;
 import java.util.Optional;
 
 @Endpoint
@@ -31,10 +30,24 @@ public class CustomerEndpoint {
 
         // Get customer object from profile microservice
         response.setCustomer(Optional.ofNullable(
-                restTemplate.getForObject("http://profile-service/v1/profiles?username={username}",
-                Customer.class, request.getUsername()))
+                restTemplate.getForObject("http://profile-service/v1/profiles/{username}",
+                        Customer.class, request.getUsername()))
                 .map(c -> c).orElse(null));
 
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateCustomerRequest")
+    @ResponsePayload
+    public UpdateCustomerResponse updateCustomer(@RequestPayload UpdateCustomerRequest request)
+            throws SOAPException {
+        UpdateCustomerResponse response = new UpdateCustomerResponse();
+        Customer customer = Optional.ofNullable(
+                restTemplate.postForObject("http://profile-service/v1/profiles/{username}",
+                        request.getCustomer(), Customer.class))
+                        .map(c -> c).orElse(null);
+
+        response.setSuccess(customer != null);
         return response;
     }
 }
