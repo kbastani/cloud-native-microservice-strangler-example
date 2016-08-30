@@ -1,10 +1,10 @@
-#config-service:
-#  image: config-service
-#  environment:
-#   - SPRING_PROFILES_ACTIVE=docker
-#   - DOCKER_IP=$DOCKER_IP
-#  ports:
-#   - 8888:8888
+config-service:
+  image: config-service
+  environment:
+   - SPRING_PROFILES_ACTIVE=docker
+   - DOCKER_IP=$DOCKER_IP
+  ports:
+   - 8888:8888
 mysql:
   image: mysql:latest
   ports:
@@ -24,8 +24,7 @@ user-service:
   links:
    - mysql
    - discovery-service
-   #- config-service
-   #- zipkin
+   - config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - DOCKER_IP=$DOCKER_IP
@@ -43,8 +42,7 @@ edge-service:
   links:
    - user-service
    - discovery-service
-   #- config-service
-   #- zipkin
+   - config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - DOCKER_IP=$DOCKER_IP
@@ -54,7 +52,7 @@ profile-service:
    - user-service
    - discovery-service
    - customer-service
-   #- config-service
+   - config-service
    - mysql
    - rabbit
   environment:
@@ -66,7 +64,7 @@ profile-web:
    - 8787:8787
   links:
    - discovery-service
-   #- config-service
+   - config-service
    - user-service
    - edge-service
   environment:
@@ -90,6 +88,7 @@ legacy-edge:
    - discovery-service
    - user-service
    - edge-service
+   - config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - DOCKER_IP=$DOCKER_IP
