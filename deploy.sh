@@ -27,7 +27,7 @@ do
     dirs[i++]=$(echo "${d%/}" | sed -e "s/\/manifest.yml//g")
 done
 
-# This is the list of backing services for the online store
+# This is the list of backing services
 backing_services='discovery-service\|config-service\|user-service\|edge-service\|customer-service'
 service_instances=(discovery-service config-service user-service edge-service customer-service)
 
@@ -40,7 +40,6 @@ filter_arr $backing_services ${dirs[@]}
 echo 'Deploying backing services...\n---'
 
 # Create databases and message brokers
-
 cf create-service p-mysql 1gb user-db
 cf create-service p-mysql 1gb shared-db
 cf create-service p-mysql 1gb profile-db
