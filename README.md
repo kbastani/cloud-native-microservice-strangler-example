@@ -64,4 +64,4 @@ When you have a CF environment to deploy the example, go ahead and run the `depl
 
 ## License
 
-This project is licensed under Apache License 2.0.
+This project is an open source product licensed under GPLv3.
